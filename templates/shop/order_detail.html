@@ -1,0 +1,43 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Заказ #{{ order.order_number }} - РадиоМаг{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Детали заказа #{{ order.order_number }}</h1>
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <p><strong>Дата:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
+            <p><strong>Статус:</strong> {{ order.status }}</p>
+            <p><strong>Итого:</strong> {{ order.total_amount }} руб.</p>
+        </div>
+    </div>
+    <h2 class="mb-3">Товары в заказе</h2>
+    {% if order.items.all %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Товар</th>
+                    <th>Количество</th>
+                    <th>Цена за единицу</th>
+                    <th>Итого</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order.items.all %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.price }} руб.</td>
+                    <td>{{ item.get_total_price }} руб.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-center">Товары в заказе отсутствуют.</p>
+    {% endif %}
+    <p><a href="{% url 'shop:home' %}" class="btn btn-outline-secondary">На главную</a></p>
+</div>
+{% endblock %}

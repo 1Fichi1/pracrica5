@@ -1,0 +1,45 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Товары - РадиоМаг{% endblock %}
+{% block content %}
+<h1 class="mb-4">Товары</h1>
+{% if user.is_staff %}
+<p><a href="{% url 'shop:product_create' %}" class="btn btn-primary mb-3">Добавить товар</a></p>
+{% endif %}
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+            <img src="{% static 'images/no-image.jpg' %}" class="card-img-top" alt="No Image" style="height: 200px; object-fit: cover;">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text text-muted">Категория: {{ product.category }}</p>
+                <p class="card-text fw-bold text-primary">{{ product.price }} руб.</p>
+                <p class="card-text">На складе: {{ product.stock }}</p>
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'shop:product_detail' product.pk %}" class="btn btn-outline-primary">Просмотр</a>
+                    <form action="{% url 'shop:cart_add' product.pk %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <input type="number" name="quantity" value="1" min="1" class="form-control d-inline w-25 me-2">
+                        <button type="submit" class="btn btn-primary">В корзину</button>
+                    </form>
+                </div>
+                {% if user.is_staff %}
+                <div class="mt-2">
+                    <a href="{% url 'shop:product_update' product.pk %}" class="btn btn-outline-warning btn-sm">Изменить</a>
+                    <a href="{% url 'shop:product_delete' product.pk %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-center">Товары отсутствуют.</p>
+    {% endfor %}
+</div>
+<p><a href="{% url 'shop:home' %}" class="btn btn-outline-secondary">Назад</a></p>
+{% endblock %}

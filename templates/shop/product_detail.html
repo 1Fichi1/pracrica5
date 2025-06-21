@@ -1,0 +1,29 @@
+{% extends 'shop/base.html' %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+    <h2>{{ product.name }}</h2>
+    <div class="row">
+        <div class="col-md-6">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <p><strong>Описание:</strong> {{ product.description }}</p>
+            <p><strong>Цена:</strong> {{ product.price }} руб.</p>
+            <p><strong>В наличии:</strong> {{ product.stock }}</p>
+            <p><strong>Категория:</strong> {{ product.category.name }}</p>
+            <p><strong>Производитель:</strong> {{ product.manufacturer.name }}</p>
+            <p><strong>Поставщик:</strong> {{ product.supplier.name }}</p>
+            <form action="{% url 'shop:cart_add' product.pk %}" method="post">
+                {% csrf_token %}
+                <input type="number" name="quantity" value="1" min="1" class="form-control d-inline" style="width: 60px;">
+                <button type="submit" class="btn btn-success">В корзину</button>
+            </form>
+            {% if user.is_staff %}
+                <a href="{% url 'shop:product_update' product.pk %}" class="btn btn-warning">Редактировать</a>
+                <a href="{% url 'shop:product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

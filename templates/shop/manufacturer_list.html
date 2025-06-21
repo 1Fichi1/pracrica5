@@ -1,0 +1,33 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Производители - РадиоМаг{% endblock %}
+{% block content %}
+<h1 class="mb-4">Производители</h1>
+{% if user.is_staff %}
+<p><a href="{% url 'shop:manufacturer_create' %}" class="btn btn-primary mb-3">Добавить производителя</a></p>
+{% endif %}
+<div class="row">
+    {% for manufacturer in manufacturers %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ manufacturer.name }}</h5>
+                <p class="card-text text-muted">{{ manufacturer.contact_info|truncatewords:15 }}</p>
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'shop:manufacturer_detail' manufacturer.pk %}" class="btn btn-outline-primary">Просмотр</a>
+                    {% if user.is_staff %}
+                    <div>
+                        <a href="{% url 'shop:manufacturer_update' manufacturer.pk %}" class="btn btn-outline-warning btn-sm">Изменить</a>
+                        <a href="{% url 'shop:manufacturer_delete' manufacturer.pk %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-center">Производители отсутствуют.</p>
+    {% endfor %}
+</div>
+<p><a href="{% url 'shop:home' %}" class="btn btn-outline-secondary">Назад</a></p>
+{% endblock %}

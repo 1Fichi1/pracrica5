@@ -1,0 +1,7 @@
+{% extends 'shop/base.html' %}
+{% block title %}Выход{% endblock %}
+{% block content %}
+    <h2>Выход</h2>
+    <p>Вы успешно вышли из системы.</p>
+    <a href="{% url 'shop:home' %}" class="btn btn-primary">Вернуться на главную</a>
+{% endblock %}

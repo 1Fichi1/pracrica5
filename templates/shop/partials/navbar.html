@@ -1,0 +1,48 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'shop:home' %}">РадиоМаг</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'shop:home' %}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if 'categories' in request.path %}active{% endif %}" href="{% url 'shop:category_list' %}">Категории</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if 'products' in request.path %}active{% endif %}" href="{% url 'shop:product_list' %}">Товары</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if 'manufacturers' in request.path %}active{% endif %}" href="{% url 'shop:manufacturer_list' %}">Производители</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if 'suppliers' in request.path %}active{% endif %}" href="{% url 'shop:supplier_list' %}">Поставщики</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if 'contacts' in request.path %}active{% endif %}" href="{% url 'shop:contacts' %}">Контакты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if 'cart' in request.path %}active{% endif %}" href="{% url 'shop:cart_detail' %}">Корзина</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                <li class="nav-item"><span class="nav-link">Привет, {{ user.username }}!</span></li>
+                <li class="nav-item">
+                    <form action="{% url 'shop:logout' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link btn btn-link">Выход</button>
+                    </form>
+                </li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'shop:login' %}">Авторизация</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'shop:register' %}">Регистрация</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

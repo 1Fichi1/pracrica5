@@ -1,0 +1,54 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Контакты - РадиоМаг{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Контакты</h1>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Наши контакты</h5>
+                    <p><strong>Адрес:</strong> г. Москва, ул. Радио, д. 10</p>
+                    <p><strong>Телефон:</strong> +7 (495) 123-45-67</p>
+                    <p><strong>Email:</strong> info@radiomag.ru</p>
+                    <p><strong>Часы работы:</strong> Пн-Пт: 9:00-18:00, Сб-Вс: выходной</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Напишите нам</h5>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_name" class="form-label">Имя</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                                <div class="text-danger">{{ form.name.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label">Электронная почта</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="text-danger">{{ form.email.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_message" class="form-label">Сообщение</label>
+                            {{ form.message }}
+                            {% if form.message.errors %}
+                                <div class="text-danger">{{ form.message.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p><a href="{% url 'shop:home' %}" class="btn btn-outline-secondary">На главную</a></p>
+</div>
+{% endblock %}

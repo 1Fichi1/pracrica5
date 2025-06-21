@@ -1,0 +1,14 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Удалить производителя - РадиоМаг{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Удалить производителя</h1>
+    <p>Вы уверены, что хотите удалить производителя "{{ object.name }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Удалить</button>
+        <a href="{% url 'shop:manufacturer_list' %}" class="btn btn-outline-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}

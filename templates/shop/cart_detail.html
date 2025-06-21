@@ -1,0 +1,43 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Корзина - РадиоМаг{% endblock %}
+{% block content %}
+<h1 class="mb-4">Ваша корзина</h1>
+{% if cart %}
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Товар</th>
+                <th>Количество</th>
+                <th>Цена</th>
+                <th>Итого</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price }} руб.</td>
+                <td>{{ item.total_price }} руб.</td>
+                <td>
+                    <form action="{% url 'shop:cart_remove' item.product.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p class="text-end fw-bold">Итого: {{ cart.get_total_price }} руб.</p>
+    <div class="text-end">
+        <a href="{% url 'shop:order_create' %}" class="btn btn-primary">Оформить заказ</a>
+    </div>
+</div>
+{% else %}
+<p class="text-center">Ваша корзина пуста.</p>
+{% endif %}
+{% endblock %}

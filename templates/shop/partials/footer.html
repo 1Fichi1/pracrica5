@@ -1,0 +1,29 @@
+{% load static %}
+<footer class="bg-dark text-white py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <!-- Логотип и описание -->
+            <div class="col-md-6 mb-4">
+                <h5 class="fw-bold mb-3">РадиоМаг</h5>
+                <p class="text-muted">
+                    Интернет-магазин электроники и радиодеталей. Широкий ассортимент, доступные цены, быстрая доставка по всей России.
+                </p>
+            </div>
+            <!-- Контакты -->
+            <div class="col-md-6 mb-4">
+                <h5 class="fw-bold mb-3">Контакты</h5>
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-geo-alt"></i> г. Москва, ул. Радио, д. 10</li>
+                    <li><i class="bi bi-telephone"></i> +7 (495) 123-45-67</li>
+                    <li><i class="bi bi-envelope"></i> <a href="mailto:info@radiomag.ru" class="text-white text-decoration-none">info@radiomag.ru</a></li>
+                    <li><i class="bi bi-clock"></i> Пн-Пт: 9:00-18:00</li>
+                    <li><i class="bi bi-chat"></i> <a href="{% url 'shop:contacts' %}" class="text-white text-decoration-none">Связаться с нами</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="bg-light">
+        <div class="text-center">
+            <p class="mb-0">© 2025 РадиоМаг. Все права защищены.</p>
+        </div>
+    </div>
+</footer>

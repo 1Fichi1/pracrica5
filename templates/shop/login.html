@@ -1,0 +1,30 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Авторизация - РадиоМаг{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Авторизация</h1>
+    <form method="post" class="col-md-6 mx-auto">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_username" class="form-label">Имя пользователя</label>
+            <input type="text" name="username" id="id_username" class="form-control" required>
+            {% if form.username.errors %}
+                <div class="text-danger">{{ form.username.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="id_password" class="form-label">Пароль</label>
+            <input type="password" name="password" id="id_password" class="form-control" required>
+            {% if form.password.errors %}
+                <div class="text-danger">{{ form.password.errors }}</div>
+            {% endif %}
+        </div>
+        {% if form.non_field_errors %}
+            <div class="text-danger">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Войти</button>
+        <a href="{% url 'shop:register' %}" class="btn btn-outline-secondary">Регистрация</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Регистрация - РадиоМаг{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Регистрация</h1>
+    <form method="post" class="col-md-6 mx-auto">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="mb-3">
+            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="text-danger">{{ field.errors }}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <div class="mb-3">
+            <label for="id_password_confirm" class="form-label">Подтверждение пароля</label>
+            <input type="password" name="password_confirm" id="id_password_confirm" class="form-control" required>
+            {% if form.password_confirm.errors %}
+                <div class="text-danger">{{ form.password_confirm.errors }}</div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        <a href="{% url 'shop:login' %}" class="btn btn-outline-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}
