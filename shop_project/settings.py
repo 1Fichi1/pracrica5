@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'shop_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-        'NAME': 'shop_db',
-        'USER': 'postgres',
-        'PASSWORD': '1'
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'fichi$shop_db',  # Имя базы данных из PythonAnywhere
+        'USER': 'fichi',       # Имя пользователя MySQL
+        'PASSWORD': 'VY@UL^rcabv4F28',   # Пароль MySQL
+        'HOST': 'fichi.mysql.pythonanywhere-services.com',  # Хост MySQL из PythonAnywhere
+        'PORT': '3306',
     }
 }
 
